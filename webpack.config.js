@@ -7,6 +7,9 @@
      //设置生成的预览页面名称
      filename: "index.html"
  })
+ //导入vue loader
+ const VueLoaderPlugin = require('vue-loader/lib/plugin')
+ const VueLoader = new VueLoaderPlugin()
  const path = require("path");
  module.exports = {
      mode: "development",
@@ -20,7 +23,7 @@
          filename: "bundle.js"
      },
      //插件目录
-     plugins: [htmlPlugin],
+     plugins: [htmlPlugin, VueLoader],
      module: {
          rules: [{
                  //test设置需要匹配的文件类型，支持正则
@@ -45,6 +48,9 @@
                  use: "babel-loader",
                  //exclude为排除项，意思是不要处理node_modules中的js文件
                  exclude: /node_modules/
+             }, {
+                 test: /\.vue$/,
+                 loader: 'vue-loader'
              }
          ]
      }
